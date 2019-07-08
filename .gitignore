@@ -1,0 +1,8 @@
+# Visual Studio Code settings
+.vscode/
+
+# Multiple gigabyte node modules folder 笑笑
+node_modules/
+
+# Path of twilio credentials
+config/config.json

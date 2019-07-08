@@ -1,0 +1,9 @@
+{
+    "twilio":{
+        "recipient":"whatsapp:+[0-9]{11}",
+        "credentials":{
+            "accountSid":"------Your account SID------",
+            "authToken" :"------Your auth token-------"
+        }    
+    }
+}
