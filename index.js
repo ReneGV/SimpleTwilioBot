@@ -1,15 +1,14 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser')
-
 const twilioClient = require("./lib/twilio-cilient")
+
+const _ = require("underscore");
+const custom_images = require("./assets/images.json").images
+
+const app = express();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
-
-const {accountSid, authToken} = require("./config.json").credentials
-const client = require('twilio')(accountSid, authToken);
-
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -18,9 +17,15 @@ app.get('/', function (req, res) {
 app.post('/messaging-event', function(req,res){
     let event = req.body 
     let userInput = event.Body;
+    // First message
     let outputMessage = `You typed *${userInput}*`;
-    let image = "https://media.licdn.com/dms/image/C4E0BAQGYGYHFFpDh2w/company-logo_200_200/0?e=2159024400&v=beta&t=_KSVehq6l4G3bayeETLBgDMq2P10d9p55xX0jieBWMc"
-    twilioClient.sendMessage(event.From, outputMessage,image)
+    twilioClient.sendMessage(event.From, outputMessage)
+    // Second message
+    twilioClient.sendMessage(
+      event.From,
+      "Do you know this bot is powerred by Nodejs",
+      _.sample(custom_images)
+    )
     console.log(req.body)
     res.send("ok");
 })
